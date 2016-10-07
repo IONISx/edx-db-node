@@ -1,0 +1,9 @@
+coverage:
+  notify:
+    slack:
+      default:
+        branches:
+          - master
+        url: secret:0VvxR8pa5xd+sYqX12J7U4s+2FxbJwwqDjJ9Se3lLu+Zl+pe5aCJ2VIaFGhz+kwn0strGOrZHF61+KhYmSJEUqUn3z2T3H3c8NKe4vmMb6Y3Gc7M5avyP92OP13clrASYgalvbpIrhP7DuH1dSxZJZhtLLKYdkJJauRkLkpYvjY=
+
+comment: off
