@@ -55,7 +55,7 @@ gulp.task('cover', ['pre-cover'], function () {
 
     return gulp
         .src([
-            'test/**/.test.js'
+            'test/**/*.test.js'
         ], {
             read: false
         })
