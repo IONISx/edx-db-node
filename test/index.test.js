@@ -40,13 +40,13 @@ describe('index', function () {
         });
 
         it('should not fail if the connection string is valid', function () {
-            this.db.connect('sqlite://test/databases/index');
+            this.db.connect('sqlite://test.sqlite');
 
             expect(this.db.connection).to.be.ok;
         });
 
         it('should pass options to the underlying connection', function () {
-            this.db.connect('sqlite://test/databases/index', {
+            this.db.connect('sqlite://test.sqlite', {
                 logging: false
             });
 
@@ -57,7 +57,7 @@ describe('index', function () {
     describe('models', function () {
         before(function () {
             this.db = new db.EdxDatabase();
-            this.db.connect('sqlite://test/databases/index');
+            this.db.connect('sqlite://test.sqlite');
         });
 
         it('should register models', function () {
@@ -71,7 +71,7 @@ describe('index', function () {
     describe('modules', function () {
         before(function () {
             this.db = new db.EdxDatabase();
-            this.db.connect('sqlite://test/databases/index');
+            this.db.connect('sqlite://test.sqlite');
         });
 
         it('should expose modules', function () {
