@@ -1,0 +1,21 @@
+machine:
+  node:
+    version: 4
+
+  post:
+    - npm install -g npm@3
+
+
+general:
+  artifacts:
+    - coverage
+
+
+test:
+  override:
+    # Run tests for the ci environment specifically
+    - gulp test:ci
+
+  post:
+    # Upload coverage report to codecov.io
+    - codecov --disable=gcov
