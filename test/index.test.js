@@ -39,15 +39,17 @@ describe('index', function () {
     });
 
     describe('models', function () {
-        before(function () {
-            db.connect('sqlite://test/databases/index.db');
-        });
-
         it('should register models', function () {
             expect(db.models).to.be.ok;
             expect(db.models.Auth).to.be.ok;
             expect(db.models.Courseware).to.be.ok;
             expect(db.models.Social).to.be.ok;
+        });
+    });
+
+    describe('modules', function () {
+        it('should expose modules', function () {
+            expect(db.Courseware).to.be.ok;
         });
     });
 });
