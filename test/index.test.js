@@ -6,6 +6,10 @@ const db = require('..');
 // ## //
 
 describe('index', function () {
+    it('should expose an instance of EdxDatabase', function () {
+        expect(db).to.be.an.instanceof(db.EdxDatabase);
+    });
+
     describe('defaults', function () {
         it('should not be connected by default', function () {
             expect(db.connection).to.be.null;
@@ -17,49 +21,61 @@ describe('index', function () {
     });
 
     describe('connect', function () {
+        beforeEach(function () {
+            this.db = new db.EdxDatabase();
+        });
+
         it('should expose a connect method', function () {
-            expect(db.connect).to.be.a('function');
+            expect(this.db.connect).to.be.a('function');
         });
 
         it('should fail if no connection string is specified', function () {
-            expect(db.connect).to.throw('Parameter \'url\' must be a string, not undefined');
+            expect(this.db.connect).to.throw('Parameter \'url\' must be a string, not undefined');
         });
 
         it('should fail if the connection string is invalid', function () {
-            const connect = () => db.connect('bar');
+            const connect = () => this.db.connect('bar');
 
             expect(connect).to.throw('Cannot read property \'replace\' of null');
         });
 
         it('should not fail if the connection string is valid', function () {
-            db.connect('sqlite://test/database');
+            this.db.connect('sqlite://test/databases/index');
 
-            expect(db.connection).to.be.ok;
+            expect(this.db.connection).to.be.ok;
         });
 
         it('should pass options to the underlying connection', function () {
-            expect(db.connection.options.logging).to.be.a('function');
-
-            db.connect('sqlite://test/databases', {
+            this.db.connect('sqlite://test/databases/index', {
                 logging: false
             });
 
-            expect(db.connection.options.logging).to.be.false;
+            expect(this.db.connection.options.logging).to.be.false;
         });
     });
 
     describe('models', function () {
+        before(function () {
+            this.db = new db.EdxDatabase();
+            this.db.connect('sqlite://test/databases/index');
+        });
+
         it('should register models', function () {
-            expect(db.models).to.be.ok;
-            expect(db.models.Auth).to.be.ok;
-            expect(db.models.Courseware).to.be.ok;
-            expect(db.models.Social).to.be.ok;
+            expect(this.db.models).to.be.ok;
+            expect(this.db.models.Auth).to.be.ok;
+            expect(this.db.models.Courseware).to.be.ok;
+            expect(this.db.models.Social).to.be.ok;
         });
     });
 
     describe('modules', function () {
+        before(function () {
+            this.db = new db.EdxDatabase();
+            this.db.connect('sqlite://test/databases/index');
+        });
+
         it('should expose modules', function () {
-            expect(db.Courseware).to.be.ok;
+            expect(this.db.Courseware).to.be.ok;
         });
     });
 });

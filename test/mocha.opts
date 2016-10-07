@@ -1,2 +1,3 @@
+--recursive
 --require ./test/bootstrap/node
 --timeout 5000
