@@ -32,9 +32,19 @@ describe('index', function () {
         });
 
         it('should not fail if the connection string is valid', function () {
-            db.connect('sqlite://test/databases/index.db');
+            db.connect('sqlite://test/database');
 
             expect(db.connection).to.be.ok;
+        });
+
+        it('should pass options to the underlying connection', function () {
+            expect(db.connection.options.logging).to.be.a('function');
+
+            db.connect('sqlite://test/databases', {
+                logging: false
+            });
+
+            expect(db.connection.options.logging).to.be.false;
         });
     });
 
