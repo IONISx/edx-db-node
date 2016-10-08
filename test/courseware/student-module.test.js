@@ -8,7 +8,9 @@ const db = require('../..');
 describe('courseware.student-module', function () {
     before(function (done) {
         this.db = new db.EdxDatabase();
-        this.db.connect('sqlite://test.sqlite');
+        this.db.connect('sqlite://test.sqlite', {
+            logging: false
+        });
 
         this.db.connection
             .sync({
