@@ -1,5 +1,5 @@
 {
-  "name": "edx-db-node",
+  "name": "edx-db",
   "version": "1.0.0",
   "description": "Open edX database library",
   "main": "index.js",
