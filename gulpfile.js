@@ -1,12 +1,24 @@
-var gulp      = require('gulp');
-var eslint    = require('gulp-eslint');
-var mocha     = require('gulp-mocha');
-var istanbul  = require('gulp-istanbul');
+const gulp = require('gulp');
+
+const $    = require('gulp-load-plugins')();
+
 
 // ## //
 
+// Configuration
+
 var config = {
     reports: process.env.CIRCLE_TEST_REPORTS || 'reports'
+};
+
+// Log errors
+
+var _logErrors = function (err) {
+    $.util.log(
+        $.util.colors.red(err)
+    );
+
+    process.exit(1);
 };
 
 gulp.task('eslint', function () {
@@ -17,9 +29,9 @@ gulp.task('eslint', function () {
             'lib/**/*.js',
             'test/**/*.js'
         ])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
+        .pipe($.eslint())
+        .pipe($.eslint.format())
+        .pipe($.eslint.failAfterError());
 });
 
 gulp.task('mocha', function () {
@@ -29,7 +41,7 @@ gulp.task('mocha', function () {
         ], {
             read: false
         })
-        .pipe(mocha({
+        .pipe($.mocha({
             timeout: 5000,
             reporter: 'spec',
             require: [
@@ -44,10 +56,10 @@ gulp.task('pre-cover', function () {
             'index.js',
             'lib/**/*.js'
         ])
-        .pipe(istanbul({
+        .pipe($.istanbul({
             includeUntested: true
         }))
-        .pipe(istanbul.hookRequire());
+        .pipe($.istanbul.hookRequire());
 });
 
 gulp.task('cover', ['pre-cover'], function () {
@@ -59,14 +71,15 @@ gulp.task('cover', ['pre-cover'], function () {
         ], {
             read: false
         })
-        .pipe(mocha({
+        .pipe($.mocha({
             timeout: 5000,
             reporter: require('xunit-file'),
             require: [
                 './test/bootstrap/node'
             ]
         }))
-        .pipe(istanbul.writeReports({
+        .on('error', _logErrors)
+        .pipe($.istanbul.writeReports({
             reporters: ['lcov', 'text-summary']
         }));
 });
