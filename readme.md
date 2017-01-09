@@ -11,13 +11,13 @@
 First, install `gulp`:
 
 ```shell
-$ npm install -g gulp-cli
+$ yarn global add --dev gulp-cli
 ```
 
 Then install the local dependencies:
 
 ```shell
-$ npm install
+$ yarn install
 ```
 
 Finally, assess code quality and run unit tests using `gulp`:
