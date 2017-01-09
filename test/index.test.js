@@ -30,7 +30,7 @@ describe('index', function () {
         });
 
         it('should fail if no connection string is specified', function () {
-            expect(this.db.connect).to.throw('Parameter \'url\' must be a string, not undefined');
+            expect(this.db.connect).to.throw('Parameter "url" must be a string, not undefined');
         });
 
         it('should fail if the connection string is invalid', function () {
