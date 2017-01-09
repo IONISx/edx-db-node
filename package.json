@@ -1,6 +1,6 @@
 {
   "name": "edx-db",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Open edX database library",
   "main": "index.js",
   "scripts": {
